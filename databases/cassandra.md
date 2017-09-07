@@ -19,18 +19,18 @@ Non-relational databases use new and potentially unfamiliar architectures and da
 often trades-offs as dictated by the [CAP theorem](https://en.wikipedia.org/wiki/CAP_theorem) that must be 
 made in order to obtain the necessary benefits that non-relational databases need.
 
-|**Relational Database**|**Cassandra**|
-|-----------------------|-------------|
-|Handles moderate incoming data|Handles high incoming data velocity|
-|Data arriving from one/few locations|Data arriving form many locations|
-|Manages primarily structured data|Manages all types of data|
-|Supports complex/nested transactions|Supports simple transactions|
-|Single point of failure with failover|No single points of failure; constant uptime|
-|Supports moderate data volumes|Supports very high data volumes|
-|Centralized deployments|Decentralized deployments|
-|Data written in mostly one location|Data written in many locations|
-|Supports read scaliability (with consistency sacrfices)|Supports read and write scalability|
-|Deployed in vertical scale up fashion|Deployed in horizontal scale out fashion|
+|**Relational Database**                                |**Cassandra**                               |
+|-------------------------------------------------------|--------------------------------------------|
+|Handles moderate incoming data                         |Handles high incoming data velocity         |
+|Data arriving from one/few locations                   |Data arriving form many locations           |
+|Manages primarily structured data                      |Manages all types of data                   |
+|Supports complex/nested transactions                   |Supports simple transactions                |
+|Single point of failure with failover                  |No single points of failure; constant uptime|
+|Supports moderate data volumes                         |Supports very high data volumes             |
+|Centralized deployments                                |Decentralized deployments                   |
+|Data written in mostly one location                    |Data written in many locations              |
+|Supports read scaliability (with consistency sacrfices)|Supports read and write scalability         |
+|Deployed in vertical scale up fashion                  |Deployed in horizontal scale out fashion    |
 
 **Vertical Scale-Up:** Scale up by adding more power (CPU, RAM)<br/>
 **Horizontal Scale-Up:** Scale up by adding more machines
