@@ -34,5 +34,3 @@ In this case, `min` is our prefix function. In Haskell, function parameters are 
 ```haskell
 40 `min` 2
 ```
-
-However, it is usually more succinct and clear to *not* use this notation to avoid confusion.
