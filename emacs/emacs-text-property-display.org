@@ -1,3 +1,6 @@
+#+TITLE: Emacs Text Property: Display
+#+AUTHOR: Cameron Smith - <cjonsmith@gmail.com>
+
 When reading the manual for Info, I noticed that the text that is written in the info file
 does not always match what is displayed in the info window. For example, on the node `(info)
 Help-Xref', the visible text on the first cross-reference is:
