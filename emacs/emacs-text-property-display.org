@@ -77,3 +77,100 @@ There are text properties here:
 A new *Help* buffer is opened, and a lot of not-so-pertainant info is given. However, at the
 bottom there is a section that lists what "text properties" are applied to the current
 character, one of which is called `display'.
+
+Unsure of what "text properties" were, I invoked `info-apropos' and searched for "text
+propert" (without the `y' or `ies' to try and match both) and this was the resulting
+*info* node:
+
+```
+Apropos Index
+*************
+
+Index entries that match ‘text propert’:
+
+[index]
+\* Menu:
+
+\* text properties at point [emacs]:      (emacs)International Chars. (line 65)
+\* text properties of characters [emacs]: (emacs)Editing Format Info. (line 20)
+\* category (text property) [elisp]:      (elisp)Special Properties. (line 15)
+```
+
+Starting with the first link, since that seems to match the function I used to find
+the text properties to begin with (`what-cursor-position'). And indeed, it does make mention
+of the `C-x =' keystrokes, which is bound to the previously named function. The node then
+goes on to describe what happens when the prefix argument is supplied to the function (like
+we did earlier.) The final bullet point mentions the character's text properties:
+
+```
+The character’s text properties (*note (elisp)Text Properties::),
+including any non-default faces used to display the character, and
+any overlays containing it (*note (elisp)Overlays::).
+```
+
+Ah-ha! A link to an elisp info node about text properties: let's follow that link and
+see what we can find there.
+
+One of the first pieces of information we find on the node is:
+
+```
+Each character position in a buffer or a string can have a “text
+property list”, much like the property list of a symbol (*note Property
+Lists::).
+```
+
+Still being relatively new to elisp, I'm not familiar with what a property list is, so I'll
+navigate to the cross referenced node. It is here that we get our answer:
+
+```
+A “property list” (“plist” for short) is a list of paired elements.
+Each of the pairs associates a property name (usually a symbol) with a
+property or value.  Here is an example of a property list:
+
+     (pine cones numbers (1 2 3) color "blue")
+
+This property list associates ‘pine’ with ‘cones’, ‘numbers’ with ‘(1 2
+3)’, and ‘color’ with ‘"blue"’.  The property names and values can be
+any Lisp objects, but the names are usually symbols (as they are in this
+example).
+```
+
+Great! So property lists are just lists whose elements are paired together based on their
+position in the list. I'll navigate back to the previous node I visited using the
+`Info-history-back' function (which is, by default, bound to `l').
+
+Reading about text properties, I learned that each character in a buffer (or a string)
+can have a "text property list", and that even if the same character appears in multiple
+locations in a string or buffer, each occurrence has their own "text property list".
+
+Each property in the "text property list" corresponds to a particular purpose. For example,
+the text property `face' specifies the faces for displaying the character.
+
+In the menu on this node, there is a link to the (elisp) Special Properties node. Navigating
+there and searching for `display' yields the following:
+
+‘display’
+     This property activates various features that change the way text
+     is displayed.  For example, it can make text appear taller or
+     shorter, higher or lower, wider or narrow, or replaced with an
+     image.  *Note Display Property::.
+
+From here, we're getting very close. Diving into the next node, `(elisp) Display Property',
+we get some general information about what the display property does. Jumping to the
+`(elisp) Other Display Specs' node from the menu, we're treated to our answer:
+
+```
+Here are the other sorts of display specifications that you can use in
+the ‘display’ text property.
+
+‘STRING’
+     Display STRING instead of the text that has this property.
+
+     Recursive display specifications are not supported—STRING’s
+     ‘display’ properties, if any, are not used.
+```
+
+And there we have it! We probably could have just deduced the behavior of the `display'
+text property based off of the value of the property and what we saw in the *info* buffer,
+but this was a pretty good exercise in using the built in documentation with Emacs to
+get an exact answer to what we were looking for. 
