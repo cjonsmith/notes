@@ -1,0 +1,8 @@
+* Quick Notes
+  These notes are intended for quick referencing and do not contain a lot of details, but should link to the necessary documenation for further reading.
+** Linking to files (including info nodes) and buffers
+*** Written Description
+    To copy a link to a file in order to be used to create a link in an org mode file, visit the file in question and use the `[[help:org-store-link][org-store-link]]' function. This can be used to link to `help' buffers as well (it's actually how I got the link to the `help' buffer used in the previous link!). `org' will store the correct syntax required to insert a link in an org file inside of the '[[help:org-stored-links][org-stored-links]]' variable, which is then used by `[[help:org-insert-link][org-insert-link]]' to create a list of autocompleted values. The list of entries in `org-stored-links` can be navigated using `M-p' or `M-n'.
+*** TL;DR
+- Visit file or buffer you wish to link to and invoke `[[help:org-store-link][org-store-link]]'
+- Return to your org file and invoke `[[help:org-insert-link][org-insert-link]]' (typically bound to `C-c C-l') and use `M-p' or `M-n' to select the stored link.

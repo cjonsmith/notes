@@ -1,0 +1,20 @@
+* Removing Anonymous Hook Functions
+  [[http://blog.jayfields.com/2012/09/emacs-lisp-removing-lamba-hook.html][Source]]
+** TL;DR
+1. List out the functions attached to a hook using:
+#+NAME: List hook's functions
+#+BEGIN_SRC elisp
+(print git-commit-mode-hook)
+#+END_SRC
+2. Find the output message in the *Messages* buffer:
+#+NAME: *Messages* buffer output
+#+BEGIN_SRC text
+((lambda nil (yas-activate-extra-mode 'git-commit-mode))
+#+END_SRC
+3. Remove the function via `[[help:remove-hook][remove-hook]]' by passing a reference to the function from
+the hook's variable (git-commit-mode-hook, in our example):
+#+NAME: Removing the hook
+#+BEGIN_SRC elisp
+(remove-hook 'git-commit-mode-hook (car git-commit-mode-hook))
+#+END_SRC
+
