@@ -1,0 +1,44 @@
+* Making HTTP Requests in Elisp
+1. HTTP(s) requests can be made using the `[[help:url-retrieve-synchronously][url-retrieve-synchronously]]' function:
+#+NAME: Making request with `url-retrieve-synchronously'
+#+BEGIN_SRC elisp
+  (url-retrieve-synchronously "https://api.github.com/users/cjonsmith")
+#+END_SRC
+
+2. `url-retrieve-synchronously' returns a buffer, so we'll want to set the buffer
+returned from the buffer as the current buffer temporarily with `[[help:with-current-buffer][with-current-buffer]]'
+to operate on the response
+of the request:
+#+NAME: Setting the returned buffer as the current buffer
+#+BEGIN_SRC elisp
+  (with-current-buffer (url-retrieve-synchronously "https://api.github.com/users/cjonsmith"))
+#+END_SRC
+
+3. Now we can supply a BODY to `with-current-buffer' to return the contents of the
+temporary buffer created by `url-retrieve-synchronously' as a string that can by used by
+another function.  There are a few things to note about the response from the request
+that should be noted, however.  The first is that the [[https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers][headers]] from the response are output
+as the first paragraph, and should be removed if we're only interested in the response.
+The other thing to note is that we'll be making use of the `[[help:prog2][prog2]]' function to denote which
+[[info:elisp#Intro Eval][form]]'s result should be returned:
+#+NAME: Returning the response as a string
+#+BEGIN_SRC elisp
+  (with-current-buffer (url-retrieve-synchronously "https://api.github.com/users/cjonsmith")
+    (prog2
+	(kill-paragraph 1)
+	(buffer-string)
+      (kill-buffer)))
+#+END_SRC
+
+4. Now we want to parse the JSON response into a [[info:elisp#Hash Tables][hash table]] that we can [[help:gethash][index]] the
+property(ies) that we're interested in.  Emacs has a builtin function `[[help:json-parse-string][json-parse-string]]'
+that given a string returns a hashmap of the property names to their values:
+#+NAME: Grabbing a specific JSON property from a HTTP request
+#+BEGIN_SRC elisp
+  (gethash "name" (json-parse-string
+		   (with-current-buffer (url-retrieve-synchronously "https://api.github.com/users/cjonsmith" t)
+		     (prog2
+			 (kill-paragraph 1)
+			 (buffer-string)
+		       (kill-buffer)))))
+#+END_SRC
