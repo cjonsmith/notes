@@ -1,0 +1,69 @@
+#+TITLE: Elisp Introduction
+#+AUTHOR: Cameron Smith
+#+EMAIL: cjonsmith@gmail.com
+#+DATE: 2021-03-23
+
+* List Processing
+  A list in Elisp (or any Lisp, for that matter) is a collection of /words/ surrounded by
+  parentheses.
+** Lisp Lists
+   Here's a list! (Note the apostrophe)
+   #+NAME: Our first list
+   #+BEGIN_SRC elisp
+     '(rose violet daisy buttercup)
+   #+END_SRC
+
+   This list can also be written as:
+   #+NAME: Our first list, rewritten
+   #+BEGIN_SRC elisp
+     '(rose
+       violet
+       daisy
+       buttercup)
+   #+END_SRC
+
+   Here's one more list:
+   #+NAME: A list with numbers
+   #+BEGIN_SRC elisp
+     (+ 2 2)
+   #+END_SRC
+
+   Putting your cursor (or =point=, in Emacs lingo) after a list and invoking
+   =eval-last-sexp= (typically bound to =C-x C-e=) will evaluate each list.
+   Notice how the first two lists result in a list with the same contents
+   in the [[info:emacs#Echo Area][(emacs) Echo Area]], whereas the third list results in a number? In Lisp,
+   data and programs are represented in the same way: as lists!
+
+   Here's another list:
+   #+NAME: Anotha one
+   #+BEGIN_SRC elisp
+     '(this list has (a list inside of it))
+   #+END_SRC
+
+   Trying to invoke each list individually (the inner list and the outer list)
+   results in two very different results: the inner list evaluates to a list,
+   whereas the inner list results in an error!
+*** Lisp Atoms
+    - What we referred to as /words/ earlier are actually known as /atoms/. That is;
+    the individual contents of a list are known as /atoms/.  /Atoms/ cannot be divided
+    up, but lists can with functions like [[help:car][=car=]], [[help:cdr][=cdr=]], and [[help:cons][=cons=]].
+
+    - Some atoms can be separated into parts, such as [[info:elisp#Arrays][(elisp) Arrays]], but as far as list
+    operations are concerned, the atoms of a list are unable to be divided.
+
+    - Atoms are separated from each other by whitespace, but do not need to be separated
+    from the parentheses (they can be right next to them).
+
+    - A list in Lisp consists of parentheses surrounding atoms separated by whitespace or
+    surrounding other lists or surrounding both atoms and other lists.
+
+    - A list may contain as many or as few atoms as necessary; even zero.  A list without
+    any atoms is considered /empty/ and looks like:
+    #+NAME: An empty list
+    #+BEGIN_SRC elisp
+      ()
+    #+END_SRC
+
+    - The printed representation of both atoms and lists are called /symbolic expressions/,
+    or /s-expressions/.  The word /form/ may be used synonymously for /expression/.
+
